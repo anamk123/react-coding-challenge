@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import '../css/home.css';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -14,6 +16,9 @@ function Home(props){
     const [token, setToken] = useState(null);
     const [nameText,  setNameTextState] = React.useState("");
     const [imgText,  setImgTextState] = React.useState("");
+    const [artistText,  setArtistTextState] = React.useState("");
+    const [button, setButton] = React.useState(false);
+
 
     useEffect(() => {
 
@@ -53,36 +58,50 @@ function Home(props){
     
       }, [spotifyClientId, spotifySecret]);
 
-      const handleChange = e => {
-        setNameTextState(e.target.id);
-        console.log(nameText);
-      }
-    
-      const handleChangeImg = e =>{
+     
+      const handleChangeInput = e =>{
+        e.preventDefault();
         setImgTextState(e.target.src);
-      }
+        setNameTextState(e.target.alt);
+        setArtistTextState(e.target.id);
+      
+        // form.submit();
 
-      const  submitForm = e => {
-                               
         const newPlaylist ={
           playlist_name : nameText,
-          playlist_image: imgText
+          playlist_image: imgText,
+          playlist_artist: artistText
          }
      
          axios.post('http://localhost:4000/playlist/add', newPlaylist)
          .then(res => console.log(res.data))
         //  .then(history.push("/users"));
-       }
+
+      }
+
+      // const  submitForm = e => {
+                               
+      //   const newPlaylist ={
+      //     playlist_name : nameText,
+      //     playlist_image: imgText,
+      //     playlist_artist: artistText
+      //    }
+     
+      //    axios.post('http://localhost:4000/playlist/add', newPlaylist)
+      //    .then(res => console.log(res.data))
+      //   //  .then(history.push("/users"));
+      //  }
 
 
     return(
         <div>
 
-          <form onSubmit={e => submitForm(e)}>
-            <input type="text" placeholder="name" value={nameText} />
+          {/* <form onSubmit={e => submitForm(e)}> */}
+            {/* <input type="text" placeholder="name" value={nameText} />
             <input type="text" placeholder="img"  value={imgText}/>
-            <button type='submit'>Submit</button>
-          </form>
+            <input type="text" placeholder="artist"  value={artistText}/> */}
+
+         
               {!newReleaseData || !featuredPlaylist || !categories ?  (
                             <div>
                                 Loading
@@ -91,32 +110,41 @@ function Home(props){
                             ) : (
                             
                             <div className="holdingContainer">
+                      <h3>New Releases</h3>
 
                     <div className="flex">
                                {newReleaseData['albums']['items'].map((data, index) => {
                                 return(
-                                    <div className="items" key={index}>
-                                        <img src={data['images'][1]['url']} onClick={e => handleChangeImg(e)}></img>
-                                        <p key={index} id={data['name']} onClick={e => handleChange(e)}>{data['name']} <br></br> {data['artists'][0]['name']}</p>
+                                    <div className="items" key={index} src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']} >
+                                        <img src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']}  ></img>
+                                        <p key={index} >{data['name']} <br/> {data['artists'][0]['name']}
+                                        </p>
+                                        
+                                        <Button  variant="contained" color="secondary" src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']}  onClick={e => handleChangeInput(e)}>Add to playlist</Button> 
+
                                     </div>
+                          
+
+                                    
+                                    
                                 )
                             })}
+                            
                                 </div>
+                                <h3>Playlists</h3>
 
                                     <div className="flex">
                                     {featuredPlaylist['playlists']['items'].map((data, index) => {
                                         return(
                                             // console.log(data)
                                             <div className="items" key={index}>
-
-
-                                                <img src={data['images'][0]['url']}></img>
+                                                <img src={data['images'][0]['url']} alt={data['name']} onClick={e => handleChangeInput(e)}></img>
                                                 <p key={index}> {data['name']}</p>
-
                                             </div>
                                         )
                             })}
                                     </div>  
+                                    <h3>Categories</h3>
 
                                     <div className="flex">
 
@@ -124,7 +152,7 @@ function Home(props){
                                     {categories['categories']['items'].map((data, index) => {
                                         return(
                                             <div className="items" key={index}>
-                                                <img src={data['icons'][0]['url']}></img>
+                                                <img src={data['icons'][0]['url']} alt={data['name']} onClick={e => handleChangeInput(e)}></img>
                                                 <p key={index}> {data['name']}</p>
                                             </div>
                                         )
@@ -138,7 +166,7 @@ function Home(props){
                             
                             )} 
             
-            
+            {/* </form> */}
         </div>
     )
 }

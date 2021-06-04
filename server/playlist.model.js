@@ -8,7 +8,12 @@ let Playlist = new Schema({
     },
     playlist_image:{
         type: String
+    },
+
+    playlist_artist:{
+        type: String
     }
+
 });
 
 module.exports = mongoose.model('Playlist', Playlist);
