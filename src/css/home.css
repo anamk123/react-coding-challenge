@@ -16,3 +16,12 @@
 img{
     width: 200px;
 }
+
+.items:hover{
+    cursor: pointer;
+    transform:  scale(1.1);;
+}
+
+.subBtn{
+    display: none !important;
+}

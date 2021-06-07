@@ -8,7 +8,13 @@ function Playlist(props){
 
   const [nameText,  setNameTextState] = React.useState([""]);
   const [passText,  setPassTextState] = React.useState("");
+  const [token, setToken] = useState(null);
+  const [newReleaseData, setReleaseData] = useState(null);
+  const [featuredPlaylist, setFeaturedPlaylist] = useState(null);
+  const [categories, setCategories] = useState(null);
   const [data, setData] = useState(null);
+  const spotifyClientId = process.env.REACT_APP_CLIENT_ID;
+  const spotifySecret = process.env.REACT_APP_CLIENT_SECRET;
 
     useEffect(() => {
         axios.get('http://localhost:4000/playlist/')
@@ -17,6 +23,8 @@ function Playlist(props){
                 console.log(error);
             })
       });
+
+
     
   
 
@@ -28,13 +36,14 @@ function Playlist(props){
                                 Loading
                             </div>
                             ) : (
-                                <div>
+                                <div className='flex'>
+                                        {/* {console.log(categories)} */}
                                 {data.map((data, index) => {
                                 return(
                                    
                                     <div className="items" key={index}>
                                         
-                                        <p key={index}><br></br>Playlist: {data['playlist_name']} <br></br> Img: {data['playlist_image']} {console.log(data)}</p>
+                                        <p key={index}><br></br> {data['playlist_name']} <br></br><img src={data['playlist_image']} ></img></p>
                                     </div>)
                                 }
                                 )}

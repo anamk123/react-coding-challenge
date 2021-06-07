@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './components/home';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Playlist from './components/playlist';
-
+import Header from './components/header';
 function App() {
   return (
     <div className="App">
+            <Header></Header>
+
             <BrowserRouter>
 
      
