@@ -1,9 +1,12 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from 'axios';
-import '../css/home.css';
-import Button from '@material-ui/core/Button';
-import Header from "./header";
-import HorizontalScroll from "react-scroll-horizontal";
+// import '../css/home.css';
+// import Button from '@material-ui/core/Button';
+// import NewReleases from "./newRelease";
+// import { playlistData } from "./playlistService";
+// import Login from "./login";
+
+require('dotenv').config();
 
 
 
@@ -20,57 +23,96 @@ function Home(props){
     const [imgText,  setImgTextState] = React.useState("");
     const [artistText,  setArtistTextState] = React.useState("");
     const [isActive, setActive] = useState(false);
+    // var cors = require('cors');  
+    // Home.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+ 
 
+    // axios('https://accounts.spotify.com/api/token', {
+    //   headers: {
+    //     'Content-Type' : 'application/x-www-form-urlencoded',
+    //     'Authorization' : 'Basic ' + btoa(spotifyClientId + ':' + spotifySecret),
+    //     // 'Access-Control-Allow-Credentials' : 'true',
 
+    //   },
+    //   data: 'grant_type=client_credentials',
+    //   method: 'POST'
+    // })
+    // .then(response => setToken(response.data))
 
+    // useEffect((e) => {
+
+        
+        // .then(response => setToken(response.data));cc
+    
+          //  axios.post(
+          //   "http://localhost:4000/playlist/allPlaylists", tokenResponse.data.access_token
+          //   );
+          //  });
+          // });
+    
+      //     axios('https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5'
+      //       , {
+      //       method: 'GET',
+      //       headers: { 
+      //           'Authorization' : 'Bearer ' + tokenResponse.data.access_token,
+
+      //           'Access-Control-Allow-Origin':'http://localhost:3000/'
+      //       }
+      //     })
+          
+      //     .then(response => setReleaseData(response.data));
+      
+      //       axios('https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20'
+      //         , {
+      //         method: 'GET',
+      //         headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token,
+      //         'Access-Control-Allow-Origin':'http://localhost:3000/'
+      //       }
+      //       })
+      //       .then(response => setFeaturedPlaylist(response.data));
+
+      //       axios('https://api.spotify.com/v1/browse/categories?country=NZ&limit=20&offset=5'
+      //         , {
+      //         method: 'GET',
+      //         headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token,
+      //         'Access-Control-Allow-Origin':'http://localhost:3000/'
+      //       }
+      //       })
+      //       .then(response => setCategories(response.data));
+            
+      //     });
+          
+    
+      // }, [spotifyClientId, spotifySecret]);
+
+   
     useEffect((e) => {
-
-        axios('https://accounts.spotify.com/api/token', {
+    axios('https://accounts.spotify.com/api/token', {
           headers: {
             'Content-Type' : 'application/x-www-form-urlencoded',
-            'Authorization' : 'Basic ' + btoa(spotifyClientId + ':' + spotifySecret)      
+            'Authorization' : 'Basic ' + btoa(spotifyClientId + ':' + spotifySecret),
+            // 'Access-Control-Allow-Credentials' : 'true',
+
           },
           data: 'grant_type=client_credentials',
           method: 'POST'
         })
-        .then(tokenResponse => {      
-          setToken(tokenResponse.data.access_token);
-    
-          axios('https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5'
-            , {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-          })
-          .then(response => setReleaseData(response.data));
-      
-            axios('https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20'
-              , {
-              method: 'GET',
-              headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-            })
-            .then(response => setFeaturedPlaylist(response.data));
-
-            axios('https://api.spotify.com/v1/browse/categories?country=NZ&limit=20&offset=5'
-              , {
-              method: 'GET',
-              headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-            })
-            .then(response => setCategories(response.data));
-            
-          });
+        .then(response => setToken(response.data))
+        ;
           
-    
-      }, [spotifyClientId, spotifySecret]);
 
+      },[spotifyClientId, spotifySecret]);
+      axios.post("http://localhost:4000/playlist/token", token);
+      
+     
      
       const handleChangeInput = e =>{
-
-        setImgTextState(e.target.src);
         setNameTextState(e.target.alt);
         setArtistTextState(e.target.id);
-        setActive(isActive)
-        console.log(isActive);
-        
+        setImgTextState(e.target.src);
+        console.log(imgText)
+
+        setActive(isActive)       
 
       }
      
@@ -78,30 +120,29 @@ function Home(props){
       const  submitForm = e => {
                           
 
-        const newPlaylist ={
-          playlist_name : nameText,
-          playlist_image: imgText,
-          playlist_artist: artistText
-         }
+        // const newPlaylist ={
+        //   playlist_name : nameText,
+        //   playlist_image: imgText,
+        //   playlist_artist: artistText
+        //  }
          
-         console.log(nameText);
-         if(nameText,imgText){ axios.post('http://localhost:4000/playlist/add', newPlaylist)
-         .then(res => console.log(res.data))
-        //  .then(history.push("/users"));
-       }
+         e.preventDefault();
+        // playlistData.postPlaylist();
+    }
 
-       else ( alert('please select an album') && e.preventDefault() )
-      }
+
+ 
 
 
     return(
         <div>
-
+{console.log(token)}
+<p>{console.log(categories)}</p>
           <form onSubmit={e => submitForm(e)}>
          
-                                        <input type="hidden" placeholder="name" value={nameText}/>
-                                        <input type="hidden" placeholder="img"  value={imgText}/>
-                                        <input type="hidden" placeholder="artist"  value={artistText}/>
+                                        <input type="text" placeholder="name" value={nameText}/>
+                                        <input type="text" placeholder="img"  value={imgText}/>
+                                        <input type="text" placeholder="artist"  value={artistText}/>
 
               {!newReleaseData || !featuredPlaylist || !categories ?  (
                             <div>
@@ -111,6 +152,7 @@ function Home(props){
                             ) : (
                             
                             <div className="holdingContainer">
+
                       <h3>New Releases</h3>
 
                     <div className="flex">
@@ -123,11 +165,11 @@ function Home(props){
                                     </div>
                                 )
                             },
-                            <Button  variant="contained" color="secondary"   className={!isActive ? 'subBtn': null}  type='submit' >Add to playlist</Button> 
 
                             )}
 
                                 </div>
+                                {/* <Button  variant="contained" color="secondary"  type='submit' >Add to playlist</Button>  */}
 
 
                                 <h3>Playlists</h3>
