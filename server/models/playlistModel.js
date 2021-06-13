@@ -12,6 +12,10 @@ let Playlist = new Schema({
 
     playlist_artist:{
         type: String
+    },
+
+    spotify_token:{
+        type: String
     }
 
 });
