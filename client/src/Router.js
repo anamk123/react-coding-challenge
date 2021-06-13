@@ -6,7 +6,7 @@ import Customers from "./components/customers/Customers";
 import Navbar from "./components/layout/Navbar";
 import AuthContext from "./context/AuthContext";
 import Home from './components/layout/Home';
-import TestSpotify from "./components/layout/testSpotify";
+import Featured from "./components/layout/featuredPlaylists";
 
 function Router() {
   const { loggedIn } = useContext(AuthContext);
@@ -15,10 +15,7 @@ function Router() {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/">
-          <Home/>
-        </Route>
-        <TestSpotify/>
+        <Route exact path="/"></Route>
         {loggedIn === false && (
           <>
             <Route path="/register">
