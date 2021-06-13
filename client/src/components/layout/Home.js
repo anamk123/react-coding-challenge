@@ -3,6 +3,7 @@ import axios from 'axios';
 import FeaturedPlaylist from './featuredPlaylists';
 import NewReleases from './newReleases';
 import Categories from './categories';
+import './app.css';
 
 
 
@@ -66,14 +67,12 @@ function Home(props){
         // playlistData.postPlaylist();
     }
 
+    const handleInputChange = (e) => {
+      console.log(e.target.value);
+  }
 
-
-
-   
-
+    const title = "Title"
     return(
-
-      
         <>
 
 {!token ?  (
@@ -84,13 +83,13 @@ function Home(props){
                             ) : (
                                 <div>
                               <NewReleases/>
-                              <FeaturedPlaylist/>
+                              <FeaturedPlaylist
+                              handleInputChange={handleInputChange}
+                              title = {title}
+                              />
                               <Categories/>
                               </div>
-                            )}
-
-
-        
+                            )}       
 
 </>
     )

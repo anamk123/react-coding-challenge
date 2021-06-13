@@ -92,7 +92,7 @@ router.get("/newreleases", async (req, res) => {
 
 
 
- let newrelease =  await axios.request({
+ let newrelease = await axios.request({
       url: 'https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5',
       method: 'get',
   
@@ -102,8 +102,7 @@ router.get("/newreleases", async (req, res) => {
         'authorization': 'Bearer ' + spotifyToken
       }
     }).catch(err => console.log(err));
-
-    res.send(newrelease.data);
+      res.send(newrelease.data);
     
 
 });
