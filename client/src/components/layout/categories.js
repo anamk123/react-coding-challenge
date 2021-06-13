@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-function FeaturedPlaylist(props){
+function Categories(props){
     
-    const [featured, setFeaturedPlaylist] = useState("");
-      
+    const [categories, setCategories] = useState("");
+    
 
       useEffect(() => {
-        axios.get('http://localhost:4000/playlist/featured/')
-        .then(response => setFeaturedPlaylist(response.data));
-      }, [setFeaturedPlaylist]);
+        axios.get('http://localhost:4000/playlist/categories/')
+        .then(response => setCategories(response.data));
+      }, [setCategories]);
 
 return(
 
@@ -17,22 +17,24 @@ return(
 <>
 <div {...props.title}></div>
 
-                            {!featured ?  (
+                            {!categories ?  (
                             
                             <div>
-                                Loading
+                                Loading {console.log(categories)}
                             </div>
                             ) : (
+                                
                                 <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
-                                      {console.log(featured)}
+                                    {console.log(categories)}
+                                      {console.log(categories.categories.items)}
                                       {/* {console.log(featured.description)} */}
 
-                                {featured.playlists.items.map((data, index) => {
+                                {categories.categories.items.map((data, index) => {
                                 return(
 
                                     <div className="items" style={{margin: '15px'}} key={index}>
 
-                                        <p key={index}><br></br>Playlist: {data['description']} <br></br> <img src={data.images[0].url}></img> {console.log(data.images[0].url)}</p>
+                                        <p key={index}><br></br>Playlist: {data['name']} <br></br> <img src={data.icons[0].url}></img> </p>
                                     </div>)
                                 }
                                 )}
@@ -45,4 +47,4 @@ return(
       
 }
 
-export default FeaturedPlaylist;
+export default Categories;

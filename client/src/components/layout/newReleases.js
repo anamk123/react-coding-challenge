@@ -29,12 +29,12 @@ return(
                                       {console.log(newReleases)}
                                       {/* {console.log(newReleases.description)} */}
 
-                                {   ((data, index) => {
+                                {  newReleases.albums.items.map((data, index) => {
                                 return(
 
                                     <div className="items" style={{margin: '15px'}} key={index}>
 
-                                        {/* <p key={index}><br></br>Playlist: {data['description']} <br></br> <img src={data.images[0].url}></img> {console.log(data.images[0].url)}</p> */}
+                                        <p key={index}><br></br>Playlist: {data.name} <br></br> <img src={data.images[0].url}></img> </p>
                                     </div>)
                                 }
                                 )}
