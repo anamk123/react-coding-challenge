@@ -33,8 +33,7 @@ return(
                                 
                                 <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
                                   
-                                  <input type='text' value={name}></input>
-                                   <input type='text' value={image}></input>
+                                  
                                 {categories.categories.items.map((data, index) => {
                                 return(
 

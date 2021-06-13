@@ -67,11 +67,9 @@ function Home(props){
         // playlistData.postPlaylist();
     }
 
-    const handleInputChange = (e) => {
-      console.log(e.target.value);
-  }
 
-    const title = "Title"
+
+
     return(
         <>
 
@@ -84,8 +82,8 @@ function Home(props){
                                 <div>
                               <NewReleases/>
                               <FeaturedPlaylist
-                              handleInputChange={handleInputChange}
-                              title = {title}
+
+
                               />
                               <Categories/>
                               </div>

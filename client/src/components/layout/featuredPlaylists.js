@@ -16,10 +16,12 @@ function FeaturedPlaylist(props){
 
       const handleInputChange = e => {
         
+        console.log(e.target.src);
         console.log(e.target.name);
 
+
         setName(e.target.name);
-        setImage(e.target.value);
+        setImage(e.target.src);
       }
 
 return(
@@ -37,13 +39,15 @@ return(
                                 <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
                                       {console.log(featured)}
                                       {/* {console.log(featured.description)} */}
+                                      <input type='text' value={name}></input>
+                                   <input type='text' value={image}></input>
 
                                 {featured.playlists.items.map((data, index) => {
                                 return(
 
-                                    <div className="items" style={{margin: '15px'}} name={data['description']} key={index} onChange={ e => props.handleInputChange(e)}>
+                                    <div className="items" style={{margin: '15px'}} name={data.name} src={data.images[0].url} key={index} onClick={ e => handleInputChange(e)}>
 
-                                        <p key={index}><br></br>Playlist: {data['description']} <br></br> <img src={data.images[0].url}></img> </p>
+                                        <p key={index}><br></br>Playlist: {data.name} <br></br> <img src={data.images[0].url}></img> </p>
                                     </div>)
                                 }
                                 )}
