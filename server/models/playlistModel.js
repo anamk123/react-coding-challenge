@@ -14,9 +14,6 @@ let Playlist = new Schema({
         type: String
     },
 
-    spotify_token:{
-        type: String
-    }
 
 });
 

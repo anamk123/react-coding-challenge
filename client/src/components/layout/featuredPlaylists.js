@@ -24,6 +24,26 @@ function FeaturedPlaylist(props){
         setImage(e.target.src);
       }
 
+      const  submitForm = e => {
+
+
+        const newPlaylist ={
+
+          playlist_image: image,
+
+         }
+
+         axios.post('http://localhost:4000/playlist/add', newPlaylist)
+
+         console.log(image);
+         if(image){ axios.post('http://localhost:4000/playlist/add', newPlaylist)
+         .then(res => console.log(res.data))
+        //  .then(history.push("/users"));
+       }
+
+       else ( alert('please select an album') && e.preventDefault() )
+      }
+
 return(
 
     <>
@@ -52,7 +72,10 @@ return(
                                 }
                                 )}
                                 </div>
+                                
                             )}
+             <button  variant="contained" color="secondary"   onClick={e => submitForm(e)}>Add to playlist</button> 
+
 
                                 </>
    </>

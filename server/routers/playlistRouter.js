@@ -11,12 +11,11 @@ const { json } = require('body-parser');
 
 
 
-router.post("/", auth, async (req, res) => {
+router.post("/add", auth, async (req, res) => {
   try {
-    const { name, image,  } = req.body;
+    const { image,  } = req.body;
 
     const newAdd = new Playlist({
-      name,
       image
     });
 
@@ -29,7 +28,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/saved", auth, async (req, res) => {
   try {
     const playlists = await Playlist.find();
     res.json(playlists);
