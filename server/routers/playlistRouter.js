@@ -48,48 +48,48 @@ router.post('/token', async function (req, res, ) {
       })
       .send();
 
-  console.error(req.body);
-  let featured = await axios.request({
-        url: 'https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20',
-        method: 'get',
+//   console.error(req.body);
+//   let featured = await axios.request({
+//         url: 'https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20',
+//         method: 'get',
     
-        headers:
-        {
-          'content-type': 'application/x-www-form-urlencoded',
-          'authorization': 'Bearer ' + req.body.access_token
-        }
-      }).catch(err => console.log(err));
+//         headers:
+//         {
+//           'content-type': 'application/x-www-form-urlencoded',
+//           'authorization': 'Bearer ' + req.body.access_token
+//         }
+//       }).catch(err => console.log(err));
 
     
       
-    let newRelease = await axios.request({
-      url: 'https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5',
-      method: 'get',
+//     let newRelease = await axios.request({
+//       url: 'https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5',
+//       method: 'get',
   
-      headers:
-      {
-        'content-type': 'application/x-www-form-urlencoded',
-        'authorization': 'Bearer ' + req.body.access_token
-      }
-    }).catch(err => console.log(err))
+//       headers:
+//       {
+//         'content-type': 'application/x-www-form-urlencoded',
+//         'authorization': 'Bearer ' + req.body.access_token
+//       }
+//     }).catch(err => console.log(err))
   
   
-  console.error(newRelease);
+//   console.error(newRelease);
 
-  let categories = await axios.request({
-    url: 'https://api.spotify.com/v1/browse/categories?country=NZ&limit=20&offset=5',
-    method: 'get',
+//   let categories = await axios.request({
+//     url: 'https://api.spotify.com/v1/browse/categories?country=NZ&limit=20&offset=5',
+//     method: 'get',
 
-    headers:
-    {
-      'content-type': 'application/x-www-form-urlencoded',
-      'authorization': 'Bearer ' + req.body.access_token
-    }
-  }).catch(err => console.log(err))
+//     headers:
+//     {
+//       'content-type': 'application/x-www-form-urlencoded',
+//       'authorization': 'Bearer ' + req.body.access_token
+//     }
+//   }).catch(err => console.log(err))
 
-  global.spotify_access_token = req.body.access_token;
+//   global.spotify_access_token = req.body.access_token;
 
-console.error(categories);
+// console.error(categories);
 
 
 
