@@ -18,9 +18,6 @@ function Playlist(props){
             })
       });
     
-  
-
-
     return(
                                 <> 
                             {!data ?  (
@@ -33,8 +30,8 @@ function Playlist(props){
                                 return(
                                    
                                     <div className="items" key={index}>
-                                        
-                                        <p key={index}><br></br>Playlist: {data['playlist_name']} <br></br> Img: {data['playlist_image']} {console.log(data)}</p>
+                                      
+                                        <p key={index}><br></br>Playlist: {data['playlist_name']} <br></br> Img: {data['playlist_image']}</p>
                                     </div>)
                                 }
                                 )}

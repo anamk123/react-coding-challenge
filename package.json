@@ -20,6 +20,8 @@
     "spotify-web-api-js": "^1.5.1",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "https://accounts.spotify.com/api/token",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

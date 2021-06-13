@@ -4,8 +4,6 @@ import '../css/home.css';
 import Button from '@material-ui/core/Button';
 
 
-
-
 function Home(props){
     const spotifyClientId = process.env.REACT_APP_CLIENT_ID;
     const spotifySecret = process.env.REACT_APP_CLIENT_SECRET;
@@ -17,27 +15,31 @@ function Home(props){
     const [nameText,  setNameTextState] = React.useState("");
     const [imgText,  setImgTextState] = React.useState("");
     const [artistText,  setArtistTextState] = React.useState("");
-    const [button, setButton] = React.useState(false);
-
+    // const [button, setButton] = React.useState(false);
+  
 
     useEffect(() => {
 
         axios('https://accounts.spotify.com/api/token', {
           headers: {
             'Content-Type' : 'application/x-www-form-urlencoded',
-            'Authorization' : 'Basic ' + btoa(spotifyClientId + ':' + spotifySecret)      
+            'Access-Control-Allow-Origin' : '*',
+             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            'Authorization' : 'Basic ' + btoa(spotifyClientId + ':' + spotifySecret),
           },
           data: 'grant_type=client_credentials',
           method: 'POST'
         })
         .then(tokenResponse => {      
+          console.log(tokenResponse)
           setToken(tokenResponse.data.access_token);
     
           axios('https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5'
             , {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
+            headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token} 
           })
+          
           .then(response => setReleaseData(response.data));
       
             axios('https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20'
@@ -58,26 +60,21 @@ function Home(props){
     
       }, [spotifyClientId, spotifySecret]);
 
-     
       const handleChangeInput = e =>{
-        e.preventDefault();
         setImgTextState(e.target.src);
         setNameTextState(e.target.alt);
         setArtistTextState(e.target.id);
-      
-        // form.submit();
 
         const newPlaylist ={
           playlist_name : nameText,
           playlist_image: imgText,
           playlist_artist: artistText
          }
-     
-         axios.post('http://localhost:4000/playlist/add', newPlaylist)
-         .then(res => console.log(res.data))
-        //  .then(history.push("/users"));
 
-      }
+         axios.post('http://localhost:4000/playlist/add', newPlaylist)
+         .then(res => console.log(res.data));
+          }
+     
 
       // const  submitForm = e => {
                                
@@ -115,12 +112,12 @@ function Home(props){
                     <div className="flex">
                                {newReleaseData['albums']['items'].map((data, index) => {
                                 return(
-                                    <div className="items" key={index} src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']} >
+                                    <div className="items" key={index} src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']}  onClick={e => handleChangeInput(e)} >
                                         <img src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']}  ></img>
                                         <p key={index} >{data['name']} <br/> {data['artists'][0]['name']}
                                         </p>
                                         
-                                        <Button  variant="contained" color="secondary" src={data['images'][1]['url']} alt={data['name']} id={data['artists'][0]['name']}  onClick={e => handleChangeInput(e)}>Add to playlist</Button> 
+                                        <Button  variant="contained" color="secondary" >Add to playlist</Button> 
 
                                     </div>
                           
