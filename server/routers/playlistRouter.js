@@ -5,6 +5,7 @@ const auth = require("../middleware/auth");
 const spotifyClientId = process.env.REACT_APP_CLIENT_ID;
 const spotifySecret = process.env.REACT_APP_CLIENT_SECRET;
 const https = require('https');
+const { json } = require('body-parser');
 
 
 
@@ -39,6 +40,14 @@ router.get("/", auth, async (req, res) => {
 
 router.post('/token', async function (req, res, ) {
 
+  res
+      .cookie("spotify-token", req.body.access_token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      })
+      .send();
+
   console.error(req.body);
   let featured = await axios.request({
         url: 'https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20',
@@ -49,12 +58,10 @@ router.post('/token', async function (req, res, ) {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'Bearer ' + req.body.access_token
         }
-      }).catch(err => console.log(err))
-    
-    
-    const cookie = res.cookie('spotify-token', req.body.access_token);
-    console.error(featured);
+      }).catch(err => console.log(err));
 
+    
+      
     let newRelease = await axios.request({
       url: 'https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5',
       method: 'get',
@@ -90,46 +97,61 @@ console.error(categories);
 });
 // var saveToken = new Playlist
 
-router.get("/token", async (req, res) => {
-console.error(spotify_access_token = JSON.parse(body).access_token);
+router.get("/featured", async (req, res) => {
+  const rawCookies = req.headers.cookie.split('; ');
+
+  const parsedCookies = {};
+ rawCookies.forEach(rawCookie=>{
+ const parsedCookie = rawCookie.split('=');
+
+  parsedCookies[parsedCookie[0]] = parsedCookie[1];
+ });
+ const spotifyToken = parsedCookies['spotify-token'];  
+
+
+
+ let featured = await axios.request({
+      url: 'https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20',
+      method: 'get',
+  
+      headers:
+      {
+        'content-type': 'application/x-www-form-urlencoded',
+        'authorization': 'Bearer ' + spotifyToken
+      }
+    }).catch(err => console.log(err));
+
+    res.send(featured.data);
+
 });
 
-//   let token = await axios.request({
-//     url: 'https://accounts.spotify.com/api/token',
-//     method: 'post',
+router.get("/newreleases", async (req, res) => {
+  const rawCookies = req.headers.cookie.split('; ');
 
-//     headers:
-//     {
-//       'content-type': 'application/x-www-form-urlencoded',
-//       'authorization': 'Basic ' + Buffer.from(spotifyClientId + ':' + spotifySecret)
-//     },
-//     data: 'grant_type=client_credentials',
+  const parsedCookies = {};
+ rawCookies.forEach(rawCookie=>{
+ const parsedCookie = rawCookie.split('=');
 
-//   })
-
- 
-  // console.error(token);
-
-//   let featured = await axios.request({
-//     url: 'https://api.spotify.com/v1/browse/featured-playlists?country=NZ&limit=20',
-//     method: 'get',
-
-//     headers:
-//     {
-//       'content-type': 'application/x-www-form-urlencoded',
-//       'authorization': 'Bearer ' + req.body.access_token
-//     }
-//   }).catch(err => console.log(err))
+  parsedCookies[parsedCookie[0]] = parsedCookie[1];
+ });
+ const spotifyToken = parsedCookies['spotify-token'];  
 
 
-// const cookie = res.cookie('spotify-token', req.body.access_token);
-// console.error(featured);
 
+ let featured = await axios.request({
+      url: 'https://api.spotify.com/v1/browse/new-releases?country=NZ&limit=20&offset=5',
+      method: 'get',
   
-// });
+      headers:
+      {
+        'content-type': 'application/x-www-form-urlencoded',
+        'authorization': 'Bearer ' + spotifyToken
+      }
+    }).catch(err => console.log(err));
 
+    res.send(featured.data);
 
-
+});
 
 
 
