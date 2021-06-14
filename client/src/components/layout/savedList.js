@@ -30,13 +30,13 @@ import React, { useState, useEffect } from "react";
                                         {saved.map((data, index) => {
 
                                            return (
-                                               <div className='items'>
-                                               <p>{data.playlist_name}</p>
-                                               <img src={data.playlist_image}></img>
+                                               <div key={index} className='items'>
+                                               <p key={index}>{data.playlist_name}</p>
+                                               <img key={index} src={data.playlist_image}></img>
                                                </div>
                                            )
                                            
-                                           })};
+                                           })}; 
 
 
 
