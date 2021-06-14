@@ -25,7 +25,7 @@ app.use(
 );
 
 // connect to mongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/user', { useNewUrlParser: true },
+mongoose.connect('mongodb://127.0.0.1:27017/playlist', { useNewUrlParser: true },
   (err) => {
     if (err) return console.error(err);
     console.log("Connected to MongoDB");

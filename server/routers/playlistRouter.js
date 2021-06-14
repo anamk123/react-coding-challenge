@@ -2,30 +2,15 @@ const axios = require('axios')
 const router = require("express").Router();
 const Playlist = require("../models/playlistModel");
 const auth = require("../middleware/auth");
-const spotifyClientId = process.env.REACT_APP_CLIENT_ID;
-const spotifySecret = process.env.REACT_APP_CLIENT_SECRET;
 const https = require('https');
 const { json } = require('body-parser');
+const User = require('../models/userModel');
 
 
 
 
 
-router.post("/add", auth, async (req, res) => {
-
-  // const newAdd = new Playlist(req.body);
-  // newAdd.save(err=>{
-  //       if(err)
-  //           res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-  //       else{
-  //           req.user.pla.push(todo);
-  //           req.user.save(err=>{
-  //               if(err)
-  //                   res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-  //               else
-  //                   res.status(200).json({message : {msgBody : "Successfully created todo", msgError : false}});
-  //           });
-  //       }
+router.post("/add", auth, async (req, user, res) => {
 
   try {
     const { image, name } = req.body;
@@ -34,11 +19,12 @@ router.post("/add", auth, async (req, res) => {
     const savedPlaylist = await newAdd.save();
     console.error(savedPlaylist);
 
-    res.json(savedPlaylist);
+    // res.json(savedPlaylist);
   } catch (err) {
     console.error(err);
     res.status(500).send();
   }
+  
 });
 
 router.get("/saved", auth, async (req, res) => {
@@ -130,8 +116,6 @@ router.get("/categories", async (req, res) => {
  });
  const spotifyToken = parsedCookies['spotify-token'];  
 
-
-
  let categories = await axios.request({
       url: 'https://api.spotify.com/v1/browse/categories?country=NZ&limit=20&offset=5',
       method: 'get',
@@ -142,7 +126,6 @@ router.get("/categories", async (req, res) => {
         'authorization': 'Bearer ' + spotifyToken
       }
     }).catch(err => console.log(err));
-
     res.send(categories.data);
 
 });

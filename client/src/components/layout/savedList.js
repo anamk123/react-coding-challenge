@@ -8,10 +8,7 @@ import React, { useState, useEffect } from "react";
     useEffect(() => {
         axios.get('http://localhost:4000/playlist/saved/')
         .then(response => setSaved(response.data));
-        
-            
-            
-    },[setSaved]);
+    },[]);
 
 
 

@@ -45,8 +45,7 @@ function FeaturedPlaylist(props){
 return(
 
     <>
-<>
-<div {...props.title}></div>
+
 
                             {!featured ?  (
                             
@@ -54,10 +53,13 @@ return(
                                 Loading
                             </div>
                             ) : (
-                                <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
+<>
+
+                                <div className='flex' style={{background : 'grey'}}>
+                                  <h2> Featured Playlists</h2>
                                       {console.log(featured)}
                                       {/* {console.log(featured.description)} */}
-                                      <input type='hidden' value={name}></input>
+                                      {/* <input type='hidden' value={name}></input> */}
                                    <input type='hidden' value={image}></input>
 
                                 {featured.playlists.items.map((data, index) => {
@@ -72,13 +74,13 @@ return(
                                 )}
                                 </div>
 
+                              <Button  variant="contained" color="secondary" className="btn"  onClick={e => submitForm(e)}>Add to playlist</Button> 
+                              </>
 
                                 
                             )}
-                                <Button  variant="contained" color="secondary" className="btn"  onClick={e => submitForm(e)}>Add to playlist</Button> 
 
 
-                                </>
    </>
 )
       

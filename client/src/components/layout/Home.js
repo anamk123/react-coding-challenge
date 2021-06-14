@@ -40,36 +40,6 @@ function Home(props){
       axios.post("http://localhost:4000/playlist/token", token);
       // localStorage.setItem('myData', token);
 
-      
-     
-     
-      const handleChangeInput = e =>{
-        setNameTextState(e.target.alt);
-        setArtistTextState(e.target.id);
-        setImgTextState(e.target.src);
-        console.log(imgText)
-
-        setActive(isActive)       
-
-      }
-
-
-      const  submitForm = e => {
-                          
-
-        // const newPlaylist ={
-        //   playlist_name : nameText,
-        //   playlist_image: imgText,
-        //   playlist_artist: artistText
-        //  }
-         
-         e.preventDefault();
-        // playlistData.postPlaylist();
-    }
-
-
-
-
     return(
         <>
 
@@ -79,14 +49,10 @@ function Home(props){
                                 Loading 
                             </div>
                             ) : (
-                                <div>
-                                  
-                              <NewReleases/>
-                              <FeaturedPlaylist
-
-
-                              />
-                              <Categories/>
+                               <div>
+                                  <NewReleases/>
+                                  <FeaturedPlaylist/>
+                                  <Categories/>
                               </div>
                             )}       
 

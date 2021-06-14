@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 
 // register
 
@@ -49,15 +50,6 @@ router.post("/", async (req, res) => {
       }, "AnamKhan",{expiresIn : '1h'});
   }
 
-
-
-    // const token = jwt.sign(
-    //   {
-    //     user: savedUser._id,
-    //   },
-    //   'AnamKhan'
-    // );
-
     // send the token in a HTTP-only cookie
 
     res
@@ -75,9 +67,10 @@ router.post("/", async (req, res) => {
 
 // log in
 
-router.post("/login", async (req, res) => {
+router.post("/login", auth, async (req, res) => {
   try {
-    const { username, password } = req.body;
+    
+    const { username, password, _id } = req.body;
 
     // validate
 console.error(req.body);
@@ -97,14 +90,6 @@ console.error(req.body);
     if (!passwordCorrect)
       return res.status(401).json({ errorMessage: "Wrong email or password." });
 
-    // sign the token
-  //   const signToken = userId => {
-  //     return JWT.sign({
-  //         user: existingUser._id,
-  //         iss : "Anam",
-  //         sub : userId
-  //     }, "AnamKhan",{expiresIn : '1h'});
-  // }
     const token = jwt.sign(
       {
         user: existingUser._id,
