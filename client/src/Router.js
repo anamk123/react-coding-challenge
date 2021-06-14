@@ -7,6 +7,11 @@ import Navbar from "./components/layout/Navbar";
 import AuthContext from "./context/AuthContext";
 import Home from './components/layout/Home';
 import Featured from "./components/layout/featuredPlaylists";
+import Categories from "./components/layout/categories";
+import SavedPlaylists from "./components/layout/savedList";
+
+import NewReleases from "./components/layout/newReleases";
+
 
 function Router() {
   const { loggedIn } = useContext(AuthContext);
@@ -15,7 +20,18 @@ function Router() {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          <Home/>
+        </Route>
+        <Route exact path="/featured">
+          <Featured/>
+        </Route>
+        <Route exact path="/categories">
+          <Categories/>
+        </Route>
+        <Route exact path="/newrelease">
+          <NewReleases/>
+        </Route>
         {loggedIn === false && (
           <>
             <Route path="/register">
@@ -28,8 +44,8 @@ function Router() {
         )}
         {loggedIn === true && (
           <>
-            <Route path="/customer">
-              <Customers />
+            <Route path="/saved">
+              <SavedPlaylists />
             </Route>
           </>
         )}
