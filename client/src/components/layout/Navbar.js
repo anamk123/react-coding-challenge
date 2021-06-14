@@ -25,7 +25,7 @@ function Navbar() {
       {loggedIn === true && (
         <>
           <Button color="inherit"><Link to="/saved">Saved Playlists</Link></Button>
-          <Button color="inherit"><Link to="/logout">Logout</Link></Button>
+          <Button color="inherit"><LogOutBtn/></Button>
         </>
       )}
   </Toolbar>
