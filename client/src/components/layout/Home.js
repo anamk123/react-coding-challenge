@@ -52,7 +52,7 @@ function Home(props){
         setActive(isActive)       
 
       }
-     
+
 
       const  submitForm = e => {
                           
@@ -80,6 +80,7 @@ function Home(props){
                             </div>
                             ) : (
                                 <div>
+                                  
                               <NewReleases/>
                               <FeaturedPlaylist
 

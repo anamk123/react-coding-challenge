@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
@@ -17,10 +18,6 @@ function FeaturedPlaylist(props){
       const handleInputChange = e => {
         
         console.log(e.target.src);
-        console.log(e.target.name);
-
-
-        setName(e.target.name);
         setImage(e.target.src);
       }
 
@@ -30,6 +27,7 @@ function FeaturedPlaylist(props){
         const newPlaylist ={
 
           playlist_image: image,
+          playlist_name: 'testing'
 
          }
 
@@ -59,22 +57,25 @@ return(
                                 <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
                                       {console.log(featured)}
                                       {/* {console.log(featured.description)} */}
-                                      <input type='text' value={name}></input>
-                                   <input type='text' value={image}></input>
+                                      <input type='hidden' value={name}></input>
+                                   <input type='hidden' value={image}></input>
 
                                 {featured.playlists.items.map((data, index) => {
                                 return(
 
                                     <div className="items" style={{margin: '15px'}} name={data.name} src={data.images[0].url} key={index} onClick={ e => handleInputChange(e)}>
 
-                                        <p key={index}><br></br>Playlist: {data.name} <br></br> <img src={data.images[0].url}></img> </p>
+                                        <p key={index}><br></br> <img src={data.images[0].url}></img> <br></br> {data.name}  </p>
+
                                     </div>)
                                 }
                                 )}
                                 </div>
+
+
                                 
                             )}
-             <button  variant="contained" color="secondary"   onClick={e => submitForm(e)}>Add to playlist</button> 
+                                <Button  variant="contained" color="secondary" className="btn"  onClick={e => submitForm(e)}>Add to playlist</Button> 
 
 
                                 </>

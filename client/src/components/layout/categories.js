@@ -39,7 +39,7 @@ return(
 
                                     <div className="items" style={{margin: '15px'}} key={index} id={data['name']} value={data.icons[0].url} >
 
-                                        <p key={index}><br></br>Playlist: {data['name']} <br></br> <img src={data.icons[0].url}></img> </p>
+                                        <p key={index}><br></br> <img src={data.icons[0].url}></img> <br></br> {data['name']} </p>
                                     </div>)
                                 }
                                 )}

@@ -8,6 +8,7 @@ import AuthContext from "./context/AuthContext";
 import Home from './components/layout/Home';
 import Featured from "./components/layout/featuredPlaylists";
 import Categories from "./components/layout/categories";
+import SavedPlaylists from "./components/layout/savedList";
 
 import NewReleases from "./components/layout/newReleases";
 
@@ -43,8 +44,8 @@ function Router() {
         )}
         {loggedIn === true && (
           <>
-            <Route path="/customer">
-              <Customers />
+            <Route path="/saved">
+              <SavedPlaylists />
             </Route>
           </>
         )}

@@ -12,14 +12,27 @@ const { json } = require('body-parser');
 
 
 router.post("/add", auth, async (req, res) => {
+
+  // const newAdd = new Playlist(req.body);
+  // newAdd.save(err=>{
+  //       if(err)
+  //           res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
+  //       else{
+  //           req.user.pla.push(todo);
+  //           req.user.save(err=>{
+  //               if(err)
+  //                   res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
+  //               else
+  //                   res.status(200).json({message : {msgBody : "Successfully created todo", msgError : false}});
+  //           });
+  //       }
+
   try {
-    const { image,  } = req.body;
+    const { image, name } = req.body;
 
-    const newAdd = new Playlist({
-      image
-    });
-
+    const newAdd = new Playlist(req.body);
     const savedPlaylist = await newAdd.save();
+    console.error(savedPlaylist);
 
     res.json(savedPlaylist);
   } catch (err) {

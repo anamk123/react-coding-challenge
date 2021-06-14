@@ -17,7 +17,8 @@ return(
 
     <>
 <>
-<div ></div>
+                                    <h4> New Releases</h4>
+
 
                             {!newReleases ?  (
                             
@@ -25,16 +26,14 @@ return(
                                 Loading
                             </div>
                             ) : (
+                                
                                 <div className='flex' style={{display: 'flex', padding : '10px', marginLeft: '10px'}}>
-                                      {console.log(newReleases)}
-                                      {/* {console.log(newReleases.description)} */}
-
                                 {  newReleases.albums.items.map((data, index) => {
                                 return(
 
                                     <div className="items" style={{margin: '15px'}} key={index}>
 
-                                        <p key={index}><br></br>Playlist: {data.name} <br></br> <img src={data.images[0].url}></img> </p>
+                                        <p key={index}><br></br> <img src={data.images[0].url}></img><br></br> {data.name}  </p>
                                     </div>)
                                 }
                                 )}
