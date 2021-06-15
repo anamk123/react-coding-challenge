@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import {Button} from "@material-ui/core"
 
 function LogOutBtn() {
   const { getLoggedIn } = useContext(AuthContext);
@@ -17,7 +18,7 @@ function LogOutBtn() {
     history.push("/");
   }
 
-  return <button onClick={logOut}>Log out</button>;
+  return <Button style={{marginTop : '2%'}} variant="contained" color="danger" onClick={logOut}>Log out</Button>;
 }
 
 export default LogOutBtn;

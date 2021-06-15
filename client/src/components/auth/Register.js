@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import {Button} from "@material-ui/core"
+
 
 function Register() {
   const [username, setUser] = useState("");
@@ -32,12 +34,13 @@ function Register() {
   }
 
   return (
-    <div>
+       <div style={{marginLeft : '40%', marginTop : '10%'}}>
+    
       <h1>Register a new account</h1>
       <form onSubmit={register}>
         <input
           type="text"
-          placeholder="Email"
+          placeholder="User"
           onChange={(e) => setUser(e.target.value)}
           value={username}
         />
@@ -48,7 +51,7 @@ function Register() {
           value={password}
         />
         
-        <button type="submit">Register</button>
+        <br></br><Button style={{marginTop : '2%'}} type="submit"  variant="contained" color="primary" >Register</Button>
       </form>
     </div>
   );

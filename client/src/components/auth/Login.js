@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import {Button} from '@material-ui/core';
 
 function Login() {
   const [username, setUser] = useState("");
@@ -32,12 +33,12 @@ function Login() {
   }
 
   return (
-    <div>
+    <div style={{marginLeft : '40%', marginTop : '10%'}}>
       <h1>Log in to your account</h1>
       <form onSubmit={login}>
         <input
           type="text"
-          placeholder="Email"
+          placeholder="User"
           onChange={(e) => setUser(e.target.value)}
           value={username}
         />
@@ -47,7 +48,8 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button type="submit">Log in</button>
+        <br></br><Button style={{marginTop : '2%'}} variant="contained" color="primary" type="submit">Log in</Button>
+
       </form>
     </div>
   );
